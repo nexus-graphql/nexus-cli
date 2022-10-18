@@ -4,7 +4,13 @@ import inquirer from "inquirer";
 import { createSpinner } from "nanospinner";
 import { meshDev } from "../utils/helpers.js";
 
-const dev = async () => {
+console.log(
+  chalk.red(
+    figlet.textSync("Let's Run This Mesh", { horizontalLayout: "full" })
+  )
+);
+
+export default async () => {
   await inquirer.prompt([
     {
       name: "confirmRunDev",
@@ -14,7 +20,7 @@ const dev = async () => {
   ]);
 
   const startServer = () => {
-    let spinner = createSpinner("Starting your server...\n").start();
+    let spinner = createSpinner("Start your server.\n").start();
 
     meshDev();
     spinner.success({ text: "Server started on Port 4000." });
@@ -22,13 +28,3 @@ const dev = async () => {
 
   startServer();
 };
-
-export default async () => {
-  console.log(
-    chalk.red(
-      figlet.textSync("Let's Run This Mesh", { horizontalLayout: "full" })
-    )
-  );
-
-  await dev();
-}

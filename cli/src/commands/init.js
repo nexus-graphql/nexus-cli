@@ -9,7 +9,11 @@ import {
   installHandlers,
 } from "../utils/helpers.js";
 
-const run = async () => {
+console.log(
+  chalk.red(figlet.textSync("Graphql", { horizontalLayout: "full" }))
+);
+
+export default async () => {
   let input = await inquirer.prompt([
     {
       name: "connectionString",
@@ -63,13 +67,6 @@ const run = async () => {
   init();
 };
 
-export default async () => {
-  console.log(
-    chalk.red(figlet.textSync("Graphql", { horizontalLayout: "full" }))
-  );
-
-  await run();
-}
 
 /*
 workflow

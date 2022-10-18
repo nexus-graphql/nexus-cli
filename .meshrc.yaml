@@ -1,7 +1,0 @@
-sources:
-  - name: postgres
-    handler:
-      postgraphile:
-        connectionString: 'postgres://softwarebirb:tweet@localhost:5432/films'
-        options:
-          simpleCollections: only
