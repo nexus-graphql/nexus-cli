@@ -1,20 +1,19 @@
-#!/usr/bin/env node
-
 import chalk from "chalk";
 import figlet from "figlet";
 import inquirer from "inquirer";
 import { createSpinner } from "nanospinner";
+
 import {
   createMeshConfig,
   initProject,
   installHandlers,
-} from "./utils/helpers.js";
+} from "../utils/helpers.js";
 
 console.log(
   chalk.red(figlet.textSync("Graphql", { horizontalLayout: "full" }))
 );
 
-const run = async () => {
+export default async () => {
   let input = await inquirer.prompt([
     {
       name: "connectionString",
@@ -68,7 +67,6 @@ const run = async () => {
   init();
 };
 
-run();
 
 /*
 workflow
