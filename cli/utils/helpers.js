@@ -19,11 +19,11 @@ import { readFileSync, writeFileSync } from "fs";
 import { exec, execSync } from "child_process";
 import { cwd } from "process";
 
-export const createMeshConfig = ({ name, connectionString }) => {
+export const createMeshConfig = (name, connectionString) => {
   const doc = load(
     readFileSync(
       // read file
-      "../" + cwd() + "cli_mesh/cli/configTemplates/postgres.yaml",
+      cwd() + "/../cli_mesh/cli/configTemplates/postgres.yaml",
       "utf8"
     )
   );
@@ -40,6 +40,7 @@ export const createMeshConfig = ({ name, connectionString }) => {
 
 export const installHandlers = () => {
   execSync("npm install @graphql-mesh/postgraphile@0.21.22", {
+    stdio: "inherit",
     encoding: "utf-8",
   });
 };
@@ -48,6 +49,18 @@ export const initProject = () => {
   execSync("npm init -y", { encoding: "utf-8" });
   execSync(
     "npm install @graphql-mesh/cli@0.78.33 @graphql-mesh/runtime@0.44.21 graphql@16.6.0",
-    { encoding: "utf-8" }
+    { stdio: "inherit", encoding: "utf-8" }
   );
+};
+
+export const meshBuild = () => {
+  execSync("npx mesh build", { stdio: "inherit", encoding: "utf-8" });
+};
+
+export const meshStart = () => {
+  execSync("npx mesh start", { stdio: "inherit", encoding: "utf-8" });
+};
+
+export const meshDev = () => {
+  execSync("npx mesh dev", { stdio: "inherit", encoding: "utf-8" });
 };

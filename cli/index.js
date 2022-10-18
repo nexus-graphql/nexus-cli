@@ -47,14 +47,39 @@ const run = async () => {
       message: "Confirm postgres connection information?",
     },
   ]);
-  const spinner = createSpinner("Initializing your project folder.").start();
-  initProject();
-  spinner.success({ text: "Project folder has been initialized." });
+
+  const init = () => {
+    let spinner = createSpinner("Initializing your project folder.\n").start();
+
+    initProject();
+    spinner.success({ text: "Project folder has been initialized." });
+
+    spinner = createSpinner("Installing mesh handlers.\n").start();
+
+    installHandlers();
+    spinner.success({ text: "Handlers installed." });
+
+    spinner = createSpinner("Generating mesh server.\n").start();
+
+    createMeshConfig(input.name, input.connectionString);
+    spinner.success({ text: "Mesh server created" });
+  };
+
+  init();
 };
 
 run();
 
 /*
+
+TODOs:
+- Research why spinner isn't spinning. Because we're not doing some thing async?
+- check if the package.json is already created (and node modules folder exists) in cwd so we can skip that in testing
+- figure out where to save the generated project with better directory navigation
+- figure out how to run our code from the cli project but from within the empty new project folder
+- Why is the connection string that gets dumped into the .meshrc.yaml have >- and a new line?
+- Why can't we run npm graphql-mesh [dev|start|build] and need to run npx?
+- how do we run our CLI with command name aliases?
 
 workflow
 run the cli program
