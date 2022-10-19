@@ -1,7 +1,6 @@
-sources:
-  - name:
-    handler:
-      postgraphile:
-        connectionString:
-        options:
-          simpleCollections: only
+name:
+handler:
+  postgraphile:
+    connectionString:
+    options:
+      simpleCollections: only

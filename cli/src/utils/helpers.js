@@ -23,7 +23,7 @@ export const createMeshConfig = (name, connectionString) => {
   const doc = load(
     readFileSync(
       // read file
-      cwd() + "/../cli_mesh/cli/configTemplates/postgres.yaml",
+      cwd() + "/../cli_mesh/cli/configTemplates/base.yaml",
       "utf8"
     )
   );
@@ -38,8 +38,37 @@ export const createMeshConfig = (name, connectionString) => {
   );
 };
 
-export const installHandlers = () => {
-  execSync("npm install @graphql-mesh/postgraphile@0.21.22", {
+export const addGraphqlSourceToConfig = (name, endpoint) => {
+  const template = load(
+    readFileSync(
+      cwd() + "/../cli_mesh/cli/configTemplates/graphql.yaml",
+      "utf8"
+    )
+  );
+  const config = load(readFileSync(cwd() + "/.meshrc.yaml", "utf8"));
+
+  template.name = name;
+  template.handler.graphql.endpoint = endpoint;
+
+  config.sources.push(template);
+
+  writeFileSync(
+    // write to file
+    cwd() + "/.meshrc.yaml",
+    dump(config), // turns js object into yaml file
+    "utf8"
+  );
+};
+
+export const addPostgresSourceToConfig = () => {};
+
+export const installHandler = (handlerName) => {
+  const handlers = {
+    postgres: "@graphql-mesh/postgraphile@0.21.22",
+    graphql: "@graphql-mesh/graphql@0.31.24",
+  };
+
+  execSync(`npm install ${handlers[handlerName]}`, {
     stdio: "inherit",
     encoding: "utf-8",
   });

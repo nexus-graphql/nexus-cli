@@ -6,7 +6,7 @@ import { createSpinner } from "nanospinner";
 import {
   createMeshConfig,
   initProject,
-  installHandlers,
+  installHandler,
 } from "../utils/helpers.js";
 
 const run = async () => {
@@ -51,7 +51,7 @@ const run = async () => {
 
     spinner = createSpinner("Installing mesh handlers.\n").start();
 
-    installHandlers();
+    installHandler("postgres");
     spinner.success({ text: "Handlers installed." });
 
     spinner = createSpinner("Generating mesh server.\n").start();

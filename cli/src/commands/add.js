@@ -2,11 +2,7 @@ import chalk from "chalk";
 import figlet from "figlet";
 import inquirer from "inquirer";
 
-// import {
-//   createMeshConfig,
-//   initProject,
-//   installHandlers,
-// } from "../utils/helpers.js";
+import { addGraphqlSourceToConfig, installHandler } from "../utils/helpers.js";
 
 const add = async () => {
   let answers = await inquirer.prompt([
@@ -30,7 +26,7 @@ const add = async () => {
       },
     },
     {
-      name: "pg-url",
+      name: "pgUrl",
       type: "input",
       message: "Enter your postgres connection string:",
       when: (answer) => answer.dataSourceType === "postgres",
@@ -43,7 +39,7 @@ const add = async () => {
       },
     },
     {
-      name: "gql-endpoint",
+      name: "graphqlEndpoint",
       type: "input",
       message: "Enter your graphql endpoint for this data source:",
       when: (answer) => answer.dataSourceType === "graphql",
@@ -61,7 +57,10 @@ const add = async () => {
       message: "Are you ready to add this data source?",
     },
   ]);
-
+  if (answers.dataSourceType === "graphql") {
+    installHandler("graphql");
+    addGraphqlSourceToConfig(answers.name, answers.graphqlEndpoint);
+  }
   console.log(`Successfully added your ${answers.dataSourceType} data source!`);
   // const init = () => {
   //   let spinner = createSpinner("Initializing your project folder.\n").start();
