@@ -21,21 +21,12 @@ import { cwd } from "process";
 
 export const createMeshConfig = (name, connectionString) => {
   const doc = load(
-    readFileSync(
-      // read file
-      cwd() + "/../cli_mesh/cli/configTemplates/base.yaml",
-      "utf8"
-    )
+    readFileSync(cwd() + "/../cli_mesh/cli/configTemplates/base.yaml", "utf8")
   );
-  doc.sources[0].name = name; // assign yaml obj name to name
-  doc.sources[0].handler.postgraphile.connectionString = connectionString; // assign yaml obj connectionString to connectionString
+  doc.sources[0].name = name;
+  doc.sources[0].handler.postgraphile.connectionString = connectionString;
 
-  writeFileSync(
-    // write to file
-    cwd() + "/.meshrc.yaml",
-    dump(doc), // turns js object into yaml file
-    "utf8"
-  );
+  writeFileSync(cwd() + "/.meshrc.yaml", dump(doc), "utf8");
 };
 
 export const addGraphqlSourceToConfig = (name, endpoint) => {
@@ -52,15 +43,25 @@ export const addGraphqlSourceToConfig = (name, endpoint) => {
 
   config.sources.push(template);
 
-  writeFileSync(
-    // write to file
-    cwd() + "/.meshrc.yaml",
-    dump(config), // turns js object into yaml file
-    "utf8"
-  );
+  writeFileSync(cwd() + "/.meshrc.yaml", dump(config), "utf8");
 };
 
-export const addPostgresSourceToConfig = () => {};
+export const addPostgresSourceToConfig = (name, connectionString) => {
+  const template = load(
+    readFileSync(
+      cwd() + "/../cli_mesh/cli/configTemplates/postgres.yaml",
+      "utf8"
+    )
+  );
+  const config = load(readFileSync(cwd() + "/.meshrc.yaml", "utf8"));
+
+  template.name = name;
+  template.handler.postgraphile.connectionString = connectionString;
+
+  config.sources.push(template);
+
+  writeFileSync(cwd() + "/.meshrc.yaml", dump(config), "utf8");
+};
 
 export const installHandler = (handlerName) => {
   const handlers = {

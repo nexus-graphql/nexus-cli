@@ -2,7 +2,11 @@ import chalk from "chalk";
 import figlet from "figlet";
 import inquirer from "inquirer";
 
-import { addGraphqlSourceToConfig, installHandler } from "../utils/helpers.js";
+import {
+  addGraphqlSourceToConfig,
+  addPostgresSourceToConfig,
+  installHandler,
+} from "../utils/helpers.js";
 
 const add = async () => {
   let answers = await inquirer.prompt([
@@ -26,7 +30,7 @@ const add = async () => {
       },
     },
     {
-      name: "pgUrl",
+      name: "postgresConnectionString",
       type: "input",
       message: "Enter your postgres connection string:",
       when: (answer) => answer.dataSourceType === "postgres",
@@ -57,29 +61,15 @@ const add = async () => {
       message: "Are you ready to add this data source?",
     },
   ]);
+
   if (answers.dataSourceType === "graphql") {
     installHandler("graphql");
     addGraphqlSourceToConfig(answers.name, answers.graphqlEndpoint);
+  } else if (answers.dataSourceType === "postgres") {
+    addPostgresSourceToConfig(answers.name, answers.postgresConnectionString);
   }
+
   console.log(`Successfully added your ${answers.dataSourceType} data source!`);
-  // const init = () => {
-  //   let spinner = createSpinner("Initializing your project folder.\n").start();
-
-  //   initProject();
-  //   spinner.success({ text: "Project folder has been initialized." });
-
-  //   spinner = createSpinner("Installing mesh handlers.\n").start();
-
-  //   installHandlers();
-  //   spinner.success({ text: "Handlers installed." });
-
-  //   spinner = createSpinner("Generating mesh server.\n").start();
-
-  //   createMeshConfig(input.name, input.connectionString);
-  //   spinner.success({ text: "Mesh server created" });
-  // };
-
-  // init();
 };
 
 export default async () => {
