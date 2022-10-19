@@ -1,41 +1,22 @@
-/*
-
-read from configTemplates/postgres.yaml
-turn yaml file into js object
-assign name to data.name
-assign connectionString to data.connectionString
-dump js object into yaml format
-write to graphql_mesh/.meshrc.yaml
-
-write bash script that will cd into the graphql_mesh directory
-run the following commands:
-  npx mesh build
-  npx mesh dev
-
-*/
-import pkg from "js-yaml";
+import pkg from "js-yaml"; // not configured for es6 modules, so can't destructure?
 const { load, dump } = pkg;
 import { readFileSync, writeFileSync } from "fs";
-import { exec, execSync } from "child_process";
+import { execSync } from "child_process";
 import { cwd } from "process";
+import baseTemplate from "../../configTemplates/base.js";
+import graphqlTemplate from "../../configTemplates/graphql.js";
+import postgresTemplate from "../../configTemplates/postgres.js";
 
 export const createMeshConfig = (name, connectionString) => {
-  const doc = load(
-    readFileSync(cwd() + "/../cli_mesh/cli/configTemplates/base.yaml", "utf8")
-  );
-  doc.sources[0].name = name;
-  doc.sources[0].handler.postgraphile.connectionString = connectionString;
+  const template = JSON.parse(JSON.stringify(baseTemplate));
+  template.sources[0].name = name;
+  template.sources[0].handler.postgraphile.connectionString = connectionString;
 
-  writeFileSync(cwd() + "/.meshrc.yaml", dump(doc), "utf8");
+  writeFileSync(cwd() + "/.meshrc.yaml", dump(template), "utf8");
 };
 
 export const addGraphqlSourceToConfig = (name, endpoint) => {
-  const template = load(
-    readFileSync(
-      cwd() + "/../cli_mesh/cli/configTemplates/graphql.yaml",
-      "utf8"
-    )
-  );
+  const template = JSON.parse(JSON.stringify(graphqlTemplate));
   const config = load(readFileSync(cwd() + "/.meshrc.yaml", "utf8"));
 
   template.name = name;
@@ -47,12 +28,7 @@ export const addGraphqlSourceToConfig = (name, endpoint) => {
 };
 
 export const addPostgresSourceToConfig = (name, connectionString) => {
-  const template = load(
-    readFileSync(
-      cwd() + "/../cli_mesh/cli/configTemplates/postgres.yaml",
-      "utf8"
-    )
-  );
+  const template = JSON.parse(JSON.stringify(postgresTemplate));
   const config = load(readFileSync(cwd() + "/.meshrc.yaml", "utf8"));
 
   template.name = name;

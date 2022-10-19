@@ -18,7 +18,7 @@ program
   .action(dev);
 
 program
-  .command("add source")
+  .command("add")
   .alias("a")
   .description("Adds a new data source to your graphql server")
   .action(add);
