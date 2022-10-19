@@ -7,6 +7,7 @@
 - npm install -g . (installs the "team4" command so you can use it anywhere)
 
 3. Important!! Change to a NEW, empty directory
-4. Then you can run "team4 --help" to get the available commands
+  - this directory must be a sibling of the cloned `cli_mesh` directory
+5. Then you can run "team4 --help" to get the available commands
 
 Note: Make sure you do not commit generated files (.meshrc.yaml, .mesh folder, the generated package.json and package-lock.json)
