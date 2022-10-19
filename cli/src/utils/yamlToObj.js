@@ -13,13 +13,13 @@ const yamlToObj = () => {
 
   const template = load(
     readFileSync(
-      cwd() + `/../../configTemplates/yamlTemplates/${templateName}.yaml`,
+      cwd() + `/../configTemplates/yamlTemplates/${templateName}.yaml`,
       "utf8"
     )
   );
 
   writeFileSync(
-    cwd() + `/../../configTemplates/${templateName}.js`,
+    cwd() + `/../configTemplates/${templateName}.js`,
     "export default " + JSON.stringify(template),
     "utf8"
   );

@@ -1,12 +1,10 @@
-import chalk from "chalk";
-import figlet from "figlet";
 import inquirer from "inquirer";
-
+import { asciiArt, logSuccess } from "../utils/logger.js";
+import installHandler from "../utils/installHandler.js";
 import {
   addGraphqlSourceToConfig,
   addPostgresSourceToConfig,
-  installHandler,
-} from "../utils/helpers.js";
+} from "../utils/dataSources.js";
 
 const add = async () => {
   let answers = await inquirer.prompt([
@@ -69,13 +67,11 @@ const add = async () => {
     addPostgresSourceToConfig(answers.name, answers.postgresConnectionString);
   }
 
-  console.log(`Successfully added your ${answers.dataSourceType} data source!`);
+  logSuccess(`Successfully added your ${answers.dataSourceType} data source!`);
 };
 
 export default async () => {
-  console.log(
-    chalk.red(figlet.textSync("New Data Source", { horizontalLayout: "full" }))
-  );
+  asciiArt("New Data Source");
 
-  add();
+  await add();
 };

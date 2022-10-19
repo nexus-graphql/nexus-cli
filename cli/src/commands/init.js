@@ -1,29 +1,12 @@
-import chalk from "chalk";
-import figlet from "figlet";
 import inquirer from "inquirer";
+import { asciiArt } from "../utils/logger.js";
 import { createSpinner } from "nanospinner";
+import installHandler from "../utils/installHandler.js";
+import initProject from "../utils/initProject.js";
+import createMeshConfig from "../utils/createMeshConfig.js";
 
-import {
-  createMeshConfig,
-  initProject,
-  installHandler,
-} from "../utils/helpers.js";
-
-const run = async () => {
+const init = async () => {
   let input = await inquirer.prompt([
-    {
-      name: "connectionString",
-      type: "input",
-      message: "Enter your postgres connection string:",
-      validate: function (value) {
-        // todo: validate postgres connection string (make connection to DB to make sure connection is valid)
-        if (value.length) {
-          return true;
-        } else {
-          return "Please enter a postgres connection string";
-        }
-      },
-    },
     {
       name: "name",
       type: "input",
@@ -37,57 +20,43 @@ const run = async () => {
       },
     },
     {
+      name: "connectionString",
+      type: "input",
+      message: "Enter your postgres connection string:",
+      validate: function (value) {
+        if (value.length) {
+          return true;
+        } else {
+          return "Please enter a postgres connection string";
+        }
+      },
+    },
+    {
       name: "confirm-postgres-connection",
       type: "confirm",
       message: "Confirm postgres connection information?",
     },
   ]);
 
-  const init = () => {
-    let spinner = createSpinner("Initializing your project folder.\n").start();
+  let spinner = createSpinner("Initializing your project folder.\n").start();
 
-    initProject();
-    spinner.success({ text: "Project folder has been initialized." });
+  initProject();
+  spinner.success({ text: "Project folder has been initialized." });
 
-    spinner = createSpinner("Installing mesh handlers.\n").start();
+  spinner = createSpinner("Installing mesh handlers.\n").start();
 
-    installHandler("postgres");
-    spinner.success({ text: "Handlers installed." });
+  installHandler("postgres");
+  spinner.success({ text: "Handlers installed." });
 
-    spinner = createSpinner("Generating mesh server.\n").start();
+  spinner = createSpinner("Generating mesh server.\n").start();
 
-    createMeshConfig(input.name, input.connectionString);
-    spinner.success({ text: "Mesh server created" });
-  };
-
-  init();
+  createMeshConfig(input.name, input.connectionString);
+  spinner.success({
+    text: 'Your server is ready to run. Use "$ team4 dev" to run in dev mode',
+  });
 };
 
 export default async () => {
-  console.log(
-    chalk.red(figlet.textSync("Graphql", { horizontalLayout: "full" }))
-  );
-
-  run();
+  asciiArt("graphQL");
+  await init();
 };
-
-/*
-workflow
-run the cli program
-  get user database string
-  get users data source name
-
-  take connection string and data source name
-  create a package.json by running npm init -y
-  install the following packages;
-    "@graphql-mesh/cli": "^0.78.33",
-    "@graphql-mesh/runtime": "^0.44.21"
-    "graphql": "^16.6.0"
-  
-  install data source handlers
-    ex. postgraphile, grapqhl, openapi
-  
-  generate .meshrc.yaml file inside the current working directory
-    - require process lib
-      - cwd()
-*/

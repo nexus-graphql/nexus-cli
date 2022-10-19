@@ -1,8 +1,7 @@
-import chalk from "chalk";
-import figlet from "figlet";
 import inquirer from "inquirer";
+import { asciiArt } from "../utils/logger.js";
 import { createSpinner } from "nanospinner";
-import { meshDev } from "../utils/helpers.js";
+import mesh from "../utils/mesh.js";
 
 const dev = async () => {
   await inquirer.prompt([
@@ -13,22 +12,13 @@ const dev = async () => {
     },
   ]);
 
-  const startServer = () => {
-    let spinner = createSpinner("Starting your server...\n").start();
+  let spinner = createSpinner("Starting your server...\n").start();
 
-    meshDev();
-    spinner.success({ text: "Server started on Port 4000." });
-  };
-
-  startServer();
+  mesh.dev();
+  spinner.success({ text: "Server started on Port 4000." });
 };
 
 export default async () => {
-  console.log(
-    chalk.red(
-      figlet.textSync("Let's Run This Mesh", { horizontalLayout: "full" })
-    )
-  );
-
+  asciiArt("Let's Run This Mesh");
   await dev();
 };
