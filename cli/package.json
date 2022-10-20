@@ -3,9 +3,7 @@
   "version": "1.0.1",
   "main": "index.js",
   "type": "module",
-  "scripts": {
-    "start": "node ."
-  },
+  "scripts": {},
   "bin": {
     "team4": "bin/mesh-cli.js"
   },

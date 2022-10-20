@@ -1,0 +1,6 @@
+name:
+handler:
+  postgraphile:
+    connectionString:
+    options:
+      simpleCollections: only
