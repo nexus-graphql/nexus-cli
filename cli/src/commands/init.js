@@ -1,34 +1,34 @@
 import inquirer from "inquirer";
-import { asciiArt } from "../utils/logger.js";
 import { createSpinner } from "nanospinner";
+import { asciiArt } from "../utils/logger.js";
 import installHandler from "../utils/installHandler.js";
 import initProject from "../utils/initProject.js";
 import createMeshConfig from "../utils/createMeshConfig.js";
 
 const init = async () => {
-  let input = await inquirer.prompt([
+  const input = await inquirer.prompt([
     {
       name: "name",
       type: "input",
       message: "Enter the name of the data source",
-      validate: function (value) {
+      validate(value) {
         if (value.length) {
           return true;
-        } else {
-          return "Enter a name for the data source";
         }
+
+        return "Enter a name for the data source";
       },
     },
     {
       name: "connectionString",
       type: "input",
       message: "Enter your postgres connection string:",
-      validate: function (value) {
+      validate(value) {
         if (value.length) {
           return true;
-        } else {
-          return "Please enter a postgres connection string";
         }
+
+        return "Please enter a postgres connection string";
       },
     },
     {
@@ -52,7 +52,7 @@ const init = async () => {
 
   createMeshConfig(input.name, input.connectionString);
   spinner.success({
-    text: 'Your server is ready to run. Use "$ team4 dev" to run in dev mode',
+    text: 'Your server is ready to run. Use "$ nexus dev" to run in dev mode',
   });
 };
 

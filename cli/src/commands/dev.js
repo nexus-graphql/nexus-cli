@@ -1,6 +1,6 @@
 import inquirer from "inquirer";
-import { asciiArt } from "../utils/logger.js";
 import { createSpinner } from "nanospinner";
+import { asciiArt } from "../utils/logger.js";
 import mesh from "../utils/mesh.js";
 
 const dev = async () => {
@@ -12,7 +12,7 @@ const dev = async () => {
     },
   ]);
 
-  let spinner = createSpinner("Starting your server...\n").start();
+  const spinner = createSpinner("Starting your server...\n").start();
 
   mesh.dev();
   spinner.success({ text: "Server started on Port 4000." });
