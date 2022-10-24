@@ -6,7 +6,7 @@ export const asciiArt = (text) => {
 };
 
 export const log = (...args) => {
-  console.log(args);
+  console.log(...args);
 };
 
 export const logSuccess = (text) => {
