@@ -4,6 +4,7 @@ import { asciiArt } from "../utils/logger.js";
 import installHandler from "../utils/installHandler.js";
 import initProject from "../utils/initProject.js";
 import createMeshConfig from "../utils/createMeshConfig.js";
+import validateConnectionString from "../utils/validateConnectionString.js";
 
 const init = async () => {
   const input = await inquirer.prompt([
@@ -49,7 +50,7 @@ const init = async () => {
   spinner.success({ text: "Handlers installed." });
 
   spinner = createSpinner("Generating mesh server.\n").start();
-
+  await validateConnectionString(input.connectionString);
   createMeshConfig(input.name, input.connectionString);
   spinner.success({
     text: 'Your server is ready to run. Use "$ nexus dev" to run in dev mode',
