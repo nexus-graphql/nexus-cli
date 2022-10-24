@@ -7,7 +7,7 @@ import {
 } from "../utils/dataSources.js";
 
 const add = async () => {
-  let answers = await inquirer.prompt([
+  const answers = await inquirer.prompt([
     {
       name: "dataSourceType",
       type: "list",
@@ -19,12 +19,12 @@ const add = async () => {
       name: "name",
       type: "input",
       message: "Enter a name for this data source:",
-      validate: function (value) {
+      validate(value) {
         if (value.length) {
           return true;
-        } else {
-          return "Please enter a name for this data source";
         }
+
+        return "Please enter a name for this data source";
       },
     },
     {
@@ -32,12 +32,12 @@ const add = async () => {
       type: "input",
       message: "Enter your postgres connection string:",
       when: (answer) => answer.dataSourceType === "postgres",
-      validate: function (value) {
+      validate(value) {
         if (value.length) {
           return true;
-        } else {
-          return "Please enter a postgres connection string";
         }
+
+        return "Please enter a postgres connection string";
       },
     },
     {
@@ -45,12 +45,12 @@ const add = async () => {
       type: "input",
       message: "Enter your graphql endpoint for this data source:",
       when: (answer) => answer.dataSourceType === "graphql",
-      validate: function (value) {
+      validate(value) {
         if (value.length) {
           return true;
-        } else {
-          return "Please enter a graphql endpoint";
         }
+
+        return "Please enter a graphql endpoint";
       },
     },
     {

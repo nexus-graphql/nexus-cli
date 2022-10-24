@@ -1,11 +1,13 @@
 {
-  "name": "cli-mesh",
+  "name": "nexus_cli",
   "version": "1.0.1",
   "main": "index.js",
   "type": "module",
-  "scripts": {},
+  "scripts": {
+    "lint": "eslint ."
+  },
   "bin": {
-    "team4": "bin/mesh-cli.js"
+    "nexus": "bin/nexus_cli.js"
   },
   "keywords": [],
   "author": "Felicia Bacon",
@@ -15,12 +17,17 @@
     "commander": "^9.4.1",
     "figlet": "^1.5.2",
     "inquirer": "^9.1.3",
+    "js-yaml": "^4.1.0",
     "nanospinner": "^1.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",
     "@babel/preset-env": "^7.19.4",
-    "babel-jest": "^29.2.1"
+    "babel-jest": "^29.2.1",
+    "eslint": "^8.26.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0"
   },
   "description": ""
 }

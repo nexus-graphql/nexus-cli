@@ -10,5 +10,5 @@ export const log = (...args) => {
 };
 
 export const logSuccess = (text) => {
-  console.log("\u2705 " + chalk.green.bold(text));
+  console.log(`\u2705 ${chalk.green.bold(text)}`);
 };
