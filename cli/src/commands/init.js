@@ -38,8 +38,13 @@ const init = async () => {
       message: "Confirm postgres connection information?",
     },
   ]);
+  let spinner = createSpinner(
+    "Validating your postgres connection string."
+  ).start();
+  await validateConnectionString(input.connectionString);
+  spinner.success({ text: "Database connection string is valid." });
 
-  let spinner = createSpinner("Initializing your project folder.\n").start();
+  spinner = createSpinner("Initializing your project folder.\n").start();
 
   initProject();
   spinner.success({ text: "Project folder has been initialized." });
@@ -50,7 +55,6 @@ const init = async () => {
   spinner.success({ text: "Handlers installed." });
 
   spinner = createSpinner("Generating mesh server.\n").start();
-  await validateConnectionString(input.connectionString);
   createMeshConfig(input.name, input.connectionString);
   spinner.success({
     text: 'Your server is ready to run. Use "$ nexus dev" to run in dev mode',
