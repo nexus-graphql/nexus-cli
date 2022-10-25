@@ -1,4 +1,4 @@
-import { execSync } from "child_process";
+import { exec, execSync } from "child_process";
 
 const build = () => {
   execSync("npx mesh build", { stdio: "inherit", encoding: "utf-8" });
@@ -9,7 +9,11 @@ const start = () => {
 };
 
 const dev = () => {
-  execSync("npx mesh dev", { stdio: "inherit", encoding: "utf-8" });
+  exec("npx mesh dev", {
+    stdio: "inherit",
+    encoding: "utf-8",
+    killSignal: "SIGINT",
+  });
 };
 
 export default {

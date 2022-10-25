@@ -13,7 +13,6 @@ const dev = async () => {
   ]);
 
   const spinner = createSpinner("Starting your server...\n").start();
-
   mesh.dev();
   spinner.success({ text: "Server started on Port 4000." });
 };
