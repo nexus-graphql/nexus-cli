@@ -1,6 +1,7 @@
-import { execSync } from "child_process";
+import { writeFileSync } from "fs";
+import createDockerfileContents from './createDockerfileContents.js';
 
-export default () => {
-  execSync("touch Dockerfile", { encoding: "utf-8" });
-  execSync("touch .dockerignore", { encoding: "utf-8" });
+export default port => {
+  writeFileSync("Dockerfile", createDockerfileContents(port), "utf8");
+  writeFileSync(".dockerignore", "node_modules\n.mesh\ndeployment", "utf8");
 };
