@@ -5,3 +5,9 @@ sources:
         connectionString:
         options:
           simpleCollections: only
+transforms:
+  - resolversComposition:
+      mode: wrap
+      compositions:
+        - resolver: "Query.*"
+          composer: ./src/isAuth.js#isAuth

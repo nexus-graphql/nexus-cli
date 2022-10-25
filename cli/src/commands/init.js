@@ -4,6 +4,7 @@ import { asciiArt } from "../utils/logger.js";
 import installHandler from "../utils/installHandler.js";
 import initProject from "../utils/initProject.js";
 import createMeshConfig from "../utils/createMeshConfig.js";
+import createAuthComposer from "../utils/createAuthComposer.js";
 
 const init = async () => {
   const input = await inquirer.prompt([
@@ -41,6 +42,7 @@ const init = async () => {
   let spinner = createSpinner("Initializing your project folder.\n").start();
 
   initProject();
+  createAuthComposer();
   spinner.success({ text: "Project folder has been initialized." });
 
   spinner = createSpinner("Installing mesh handlers.\n").start();
