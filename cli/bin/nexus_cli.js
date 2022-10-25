@@ -5,6 +5,7 @@ import init from "../src/commands/init.js";
 import dev from "../src/commands/dev.js";
 import add from "../src/commands/add.js";
 import build from "../src/commands/build.js";
+import deploy from "../src/commands/deploy.js";
 
 program
   .command("init")
@@ -29,5 +30,10 @@ program
   .alias("b")
   .description("Generating Docker image to deploy to your private repository")
   .action(build);
+
+program
+  .command("deploy")
+  .description("Starts deployment process")
+  .action(deploy);
 
 program.parse(process.argv);
