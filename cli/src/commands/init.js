@@ -38,17 +38,17 @@ const init = async () => {
     },
   ]);
 
-  let spinner = createSpinner("Initializing your project folder.\n").start();
+  let spinner = createSpinner("Initializing your project folder...\n").start();
 
   initProject();
   spinner.success({ text: "Project folder has been initialized." });
 
-  spinner = createSpinner("Installing mesh handlers.\n").start();
+  spinner = createSpinner("Installing mesh handlers...\n").start();
 
   installHandler("postgres");
   spinner.success({ text: "Handlers installed." });
 
-  spinner = createSpinner("Generating mesh server.\n").start();
+  spinner = createSpinner("Generating mesh server...\n").start();
 
   createMeshConfig(input.name, input.connectionString);
   spinner.success({
@@ -57,6 +57,6 @@ const init = async () => {
 };
 
 export default async () => {
-  asciiArt("graphQL");
+  asciiArt("GraphQL");
   await init();
 };
