@@ -1,7 +1,7 @@
 import { execSync } from "child_process";
 
-export default () => {
-  execSync("docker build --platform linux/amd64 -t nexus-image .", {
+export default (imageName) => {
+  execSync(`docker build --platform linux/amd64 -t ${imageName} .`, {
     stdio: "inherit",
     encoding: "utf-8",
   });
