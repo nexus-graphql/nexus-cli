@@ -1,6 +1,7 @@
-require("dotenv").config();
+const { cwd } = require("process");
+const { readFileSync } = require("fs");
 
-const { ADMIN_SECRET } = process.env;
+const { ADMIN_SECRET } = JSON.parse(readFileSync(`${cwd()}/env.json`));
 
 function isAuth(next) {
   return (root, args, context, info) => {
