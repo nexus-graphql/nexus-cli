@@ -38,11 +38,22 @@ const init = async () => {
       message: "Confirm postgres connection information?",
     },
   ]);
+
   let spinner = createSpinner(
     "Validating your postgres connection string."
   ).start();
-  await validateConnectionString(input.connectionString);
-  spinner.success({ text: "Database connection string is valid." });
+
+  const connectionStatus = await validateConnectionString(
+    input.connectionString
+  );
+  if (connectionStatus.isValid) {
+    spinner.success({ text: "Database connection string is valid." });
+  } else {
+    spinner.error({
+      text: connectionStatus.message,
+    });
+    return;
+  }
 
   spinner = createSpinner("Initializing your project folder.\n").start();
 

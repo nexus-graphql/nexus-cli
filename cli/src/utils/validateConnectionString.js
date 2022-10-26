@@ -1,19 +1,14 @@
 import pgPromise from "pg-promise";
 
-const initOptions = {
-  error(error, e) {
-    if (e.cn) {
-      console.log("CN:", e.cn);
-      console.log("EVENT:", error.message || error);
-    }
-  },
-};
-
-const pgp = pgPromise(initOptions);
+const pgp = pgPromise();
 
 export default async (connectionString) => {
-  const db = pgp(connectionString);
-  const c = await db.connect(); // try to connect
-  c.done(); // success, release connection
-  return c.client.serverVersion; // return server version
+  try {
+    const db = pgp(connectionString);
+    const c = await db.connect(); // try to connect
+    c.done(); // success, release connection
+    return { isValid: true };
+  } catch (e) {
+    return { isValid: false, message: e.message };
+  }
 };
