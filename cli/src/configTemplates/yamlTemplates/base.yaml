@@ -10,4 +10,4 @@ transforms:
       mode: wrap
       compositions:
         - resolver: "Query.*"
-          composer: ./src/isAuth.js#isAuth
+          composer: ./src/composers/isAuth.js#isAuth
