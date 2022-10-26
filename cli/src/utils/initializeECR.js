@@ -1,5 +1,5 @@
 import { execSync } from "child_process";
-import { chdir } from "process";
+import { chdir, cwd } from "process";
 import path, { resolve } from "path";
 import { fileURLToPath } from "url";
 
