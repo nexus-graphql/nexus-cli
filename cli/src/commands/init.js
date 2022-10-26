@@ -44,11 +44,7 @@ const init = async () => {
   await validateConnectionString(input.connectionString);
   spinner.success({ text: "Database connection string is valid." });
 
-<<<<<<< HEAD
   spinner = createSpinner("Initializing your project folder.\n").start();
-=======
-  let spinner = createSpinner("Initializing your project folder...\n").start();
->>>>>>> main
 
   initProject();
   spinner.success({ text: "Project folder has been initialized." });
@@ -58,12 +54,8 @@ const init = async () => {
   installHandler("postgres");
   spinner.success({ text: "Handlers installed." });
 
-<<<<<<< HEAD
-  spinner = createSpinner("Generating mesh server.\n").start();
-=======
   spinner = createSpinner("Generating mesh server...\n").start();
 
->>>>>>> main
   createMeshConfig(input.name, input.connectionString);
   spinner.success({
     text: 'Your server is ready to run. Use "$ nexus dev" to run in dev mode',
