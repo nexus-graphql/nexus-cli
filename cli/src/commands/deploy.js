@@ -25,7 +25,7 @@ const deploy = async () => {
     // createDockerfile(4000);
     // createDockerImage("nexus-image");
     initializeECR();
-    pushToECR();
+    // pushToECR();
   } else {
     console.log("We don't have this set up yet :)");
   }
