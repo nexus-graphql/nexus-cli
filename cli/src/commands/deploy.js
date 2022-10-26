@@ -3,6 +3,11 @@
 */
 
 import inquirer from "inquirer";
+import initializeECR from "../utils/initializeECR.js";
+import pushToECR from "../utils/pushToERC.js";
+import createDockerfile from "../utils/createDockerfile.js";
+import createDockerImage from "../utils/createDockerImage.js";
+import { log, logSuccess } from "../utils/logger.js";
 
 const deploy = async () => {
   const answer = await inquirer.prompt([
@@ -16,7 +21,13 @@ const deploy = async () => {
   ]);
 
   if (answer.deploymentType === "AWS") {
-    console.log("here");
+    log("Getting your server ready to deploy");
+    // createDockerfile(4000);
+    // createDockerImage("nexus-image");
+    initializeECR();
+    pushToECR();
+  } else {
+    console.log("We don't have this set up yet :)");
   }
 };
 
