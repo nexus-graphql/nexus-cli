@@ -1,10 +1,11 @@
 import inquirer from "inquirer";
-import { createSpinner } from "nanospinner";
-import { asciiArt } from "../utils/logger.js";
+import { asciiArt, logSuccess, log } from "../utils/logger.js";
 import installHandler from "../utils/installHandler.js";
 import initProject from "../utils/initProject.js";
 import createMeshConfig from "../utils/createMeshConfig.js";
 import validateConnectionString from "../utils/validateConnectionString.js";
+import createComposer from "../utils/createComposer.js";
+import generateAdminSecret from "../utils/generateAdminSecret.js";
 
 const init = async () => {
   const input = await inquirer.prompt([
@@ -24,11 +25,6 @@ const init = async () => {
       name: "connectionString",
       type: "input",
       message: "Enter your postgres connection string:",
-      // validate(value) {
-      //   log("\nValidating your postgres connection string");
-      //   const done = this.async();
-      //   validateConnectionString(value, done);
-      // },
       validate(value) {
         return new Promise((res, rej) => {
           validateConnectionString(value)
@@ -48,22 +44,26 @@ const init = async () => {
     },
   ]);
 
-  let spinner = createSpinner("Initializing your project folder.\n").start();
+  log("Initializing your project folder...");
 
   initProject();
-  spinner.success({ text: "Project folder has been initialized." });
+  logSuccess("Project folder has been initialized.");
 
-  spinner = createSpinner("Installing mesh handlers...\n").start();
+  log("Setting up authentication...");
+  createComposer("isAuth");
+  const adminSecret = generateAdminSecret();
 
+  log("Installing mesh handlers...\n");
   installHandler("postgres");
-  spinner.success({ text: "Handlers installed." });
 
-  spinner = createSpinner("Generating mesh server...\n").start();
-
+  log("Generating mesh server...\n");
   createMeshConfig(input.name, input.connectionString);
-  spinner.success({
-    text: 'Your server is ready to run. Use "$ nexus dev" to run in dev mode',
-  });
+
+  logSuccess(
+    'Your server is ready to run. Use "$ nexus dev" to run in dev mode'
+  );
+  log("Make sure to include an Authorization header with your admin secret:");
+  log(`{ "Authorization": "${adminSecret}" }`);
 };
 
 export default async () => {

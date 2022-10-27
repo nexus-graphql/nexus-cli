@@ -14,18 +14,3 @@ export default async (connectionString) => {
     pgp.end();
   }
 };
-
-/*
-
-export default async (connectionString, done) => {
-  try {
-    const db = pgp(connectionString);
-    const c = await db.connect(); // try to connect
-    c.done(); // success, release connection
-    done(null, true);
-  } catch (e) {
-    done(e.message);
-  }
-};
-
-*/
