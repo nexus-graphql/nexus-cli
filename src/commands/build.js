@@ -17,14 +17,14 @@ const build = async () => {
     {
       name: "imageName",
       type: "input",
-      message:
-        "What would you like to name your docker image? Example: nexus-image",
+      default: "nexus-image",
+      message: "What would you like to name your docker image?",
     },
   ]);
 
   log("Getting your server ready for deployment...");
-  await createDockerfile(input.port);
-  await createDockerImage(input.imageName);
+  createDockerfile(input.port);
+  createDockerImage(input.imageName);
   logSuccess("Your server is ready for deployment!");
 
   createECR();
