@@ -4,6 +4,7 @@ import installHandler from "../utils/installHandler.js";
 import {
   addGraphqlSourceToConfig,
   addPostgresSourceToConfig,
+  addOpenapiSourceToConfig,
 } from "../utils/dataSources.js";
 
 const add = async () => {
@@ -12,7 +13,7 @@ const add = async () => {
       name: "dataSourceType",
       type: "list",
       message: "Why type of data source would you like to add?",
-      choices: ["postgres", "graphql"],
+      choices: ["postgres", "graphql", "openApi"],
       default: 0,
     },
     {
@@ -54,6 +55,19 @@ const add = async () => {
       },
     },
     {
+      name: "openApiSource",
+      type: "input",
+      message: "Enter your openApi source:",
+      when: (answer) => answer.dataSourceType === "openApi",
+      validate(value) {
+        if (value.length) {
+          return true;
+        }
+
+        return "Please enter an openApi source";
+      },
+    },
+    {
       name: "confirm-data-source",
       type: "confirm",
       message: "Are you ready to add this data source?",
@@ -65,6 +79,9 @@ const add = async () => {
     addGraphqlSourceToConfig(answers.name, answers.graphqlEndpoint);
   } else if (answers.dataSourceType === "postgres") {
     addPostgresSourceToConfig(answers.name, answers.postgresConnectionString);
+  } else if (answers.dataSourceType === "openApi") {
+    installHandler("openapi");
+    addOpenapiSourceToConfig(answers.name, answers.openApiSource);
   }
 
   logSuccess(`Successfully added your ${answers.dataSourceType} data source!`);

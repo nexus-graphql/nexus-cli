@@ -10,4 +10,22 @@ export default {
       },
     },
   ],
+  transforms: [
+    {
+      resolversComposition: {
+        mode: "wrap",
+        compositions: [
+          { resolver: "Query.*", composer: "./src/composers/isAuth.js#isAuth" },
+          {
+            resolver: "Mutation.*",
+            composer: "./src/composers/isAuth.js#isAuth",
+          },
+          {
+            resolver: "Subscription.*",
+            composer: "./src/composers/isAuth.js#isAuth",
+          },
+        ],
+      },
+    },
+  ],
 };

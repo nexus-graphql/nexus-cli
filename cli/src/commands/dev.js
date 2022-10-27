@@ -13,7 +13,8 @@ const dev = async () => {
       name: "port",
       default: 4000,
       type: "input",
-      message: "Which port would you like to run your server on? Press 'Enter' for default:\n",
+      message:
+        "Which port would you like to run your server on? Press 'Enter' for default:\n",
     },
   ]);
 
