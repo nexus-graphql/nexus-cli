@@ -1,4 +1,5 @@
-variable "respository_url" {}
+variable repository_url {}
+variable aws_region {}
 
 resource "aws_ecs_task_definition" "backend_task" {
     family = "backend_example_app_family"
