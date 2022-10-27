@@ -1,9 +1,7 @@
 import { chdir } from "process";
 import path, { resolve } from "path";
 import { fileURLToPath } from "url";
-import createECR from "./createECR.js";
-import pushToERC from "./pushToERC.js";
-import createECS from "./createECS.js";
+import { execSync } from "child_process";
 
 export default async () => {
   const filename = fileURLToPath(import.meta.url);
@@ -11,5 +9,5 @@ export default async () => {
   const directory = resolve(dirname, "../configTemplates/deployment/AWS");
   chdir(directory);
 
-  createECS();
+  execSync("terraform destroy", { stdio: "inherit" });
 };

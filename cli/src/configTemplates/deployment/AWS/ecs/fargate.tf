@@ -16,13 +16,13 @@ resource "aws_ecs_task_definition" "backend_task" {
 [
     {
         "name": "example_app_container",
-        "image": "250531645249.dkr.ecr.us-east-1.amazonaws.com/ecr_example_repo:latest",
-        "memory": 512,
+        "image": "${var.repository_url}:latest",
+        "memory": 1024,
         "essential": true,
         "portMappings": [
             {
-                "containerPort": 3000,
-                "hostPort": 3000
+                "containerPort": 4000,
+                "hostPort": 4000
             }
         ]
     }

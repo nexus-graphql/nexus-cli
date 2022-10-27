@@ -6,6 +6,7 @@ import dev from "../src/commands/dev.js";
 import add from "../src/commands/add.js";
 import build from "../src/commands/build.js";
 import deploy from "../src/commands/deploy.js";
+import destroy from "../src/commands/destroy.js";
 
 program
   .command("init")
@@ -35,5 +36,10 @@ program
   .command("deploy")
   .description("Starts deployment process")
   .action(deploy);
+
+program
+  .command("destroy")
+  .description("Destroy your ECS Fargate Infrastructure")
+  .action(destroy);
 
 program.parse(process.argv);
