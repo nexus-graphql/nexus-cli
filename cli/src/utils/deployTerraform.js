@@ -3,6 +3,7 @@ import path, { resolve } from "path";
 import { fileURLToPath } from "url";
 import createECR from "./createECR.js";
 import pushToERC from "./pushToERC.js";
+import createECS from "./createECS.js";
 
 export default async () => {
   const filename = fileURLToPath(import.meta.url);
@@ -12,4 +13,5 @@ export default async () => {
 
   createECR();
   pushToERC();
+  //createECS();
 };

@@ -1,6 +1,3 @@
-variable repository_url {}
-variable aws_region {}
-
 resource "aws_ecs_task_definition" "backend_task" {
     family = "backend_example_app_family"
 
@@ -19,7 +16,7 @@ resource "aws_ecs_task_definition" "backend_task" {
 [
     {
         "name": "example_app_container",
-        "image": "${var.repository_url}:latest",
+        "image": "250531645249.dkr.ecr.us-east-1.amazonaws.com/ecr_example_repo:latest",
         "memory": 512,
         "essential": true,
         "portMappings": [

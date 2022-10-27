@@ -1,13 +1,9 @@
+import { chdir, cwd } from "process";
 import { execSync } from "child_process";
-import { chdir } from "process";
-import path, { resolve } from "path";
-import { fileURLToPath } from "url";
 
 export default async () => {
-  const filename = fileURLToPath(import.meta.url);
-  const dirname = path.dirname(filename);
-  const directory = resolve(dirname, "../configTemplates/deployment/AWS/ecr");
-  chdir(directory);
+  console.log(cwd());
+  chdir(`${cwd()}/ecs`);
 
   execSync("terraform init", {
     stdio: "inherit",

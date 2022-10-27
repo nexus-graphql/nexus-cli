@@ -1,5 +1,5 @@
 resource "aws_ecr_repository" "ecr_repo" {
-  name = "ecr-automation"
+  name = "ecr_example_repo"
 }
 
 output "aws_ecr_repository" {

@@ -1,6 +1,6 @@
-variable "aws_region" {
-  description = "Which region should the resources be deployed into?"
-}
+# variable "aws_region" {
+#   description = "Which region should the resources be deployed into?"
+# }
 
 output "aws_ecr_repository" {
   value = module.ecr.aws_ecr_repository
@@ -17,6 +17,6 @@ module "ecr" {
 
 module "ecs" {
   source = "./ecs"
-  aws_region = var.aws_region
-  repository_url = module.ecr.aws_ecr_repository
+  //aws_region = var.aws_region
+  //repository_url = module.ecr.aws_ecr_repository
 }
