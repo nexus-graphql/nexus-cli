@@ -24,12 +24,21 @@ const init = async () => {
       name: "connectionString",
       type: "input",
       message: "Enter your postgres connection string:",
+      // validate(value) {
+      //   log("\nValidating your postgres connection string");
+      //   const done = this.async();
+      //   validateConnectionString(value, done);
+      // },
       validate(value) {
-        if (value.length) {
-          return true;
-        }
-
-        return "Please enter a postgres connection string";
+        return new Promise((res, rej) => {
+          validateConnectionString(value)
+            .then((result) => {
+              res(result);
+            })
+            .catch((e) => {
+              rej(e.message);
+            });
+        });
       },
     },
     {
@@ -39,23 +48,7 @@ const init = async () => {
     },
   ]);
 
-  let spinner = createSpinner(
-    "Validating your postgres connection string."
-  ).start();
-
-  const connectionStatus = await validateConnectionString(
-    input.connectionString
-  );
-  if (connectionStatus.isValid) {
-    spinner.success({ text: "Database connection string is valid." });
-  } else {
-    spinner.error({
-      text: connectionStatus.message,
-    });
-    return;
-  }
-
-  spinner = createSpinner("Initializing your project folder.\n").start();
+  let spinner = createSpinner("Initializing your project folder.\n").start();
 
   initProject();
   spinner.success({ text: "Project folder has been initialized." });
