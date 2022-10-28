@@ -3,7 +3,7 @@
 */
 
 import inquirer from "inquirer";
-import { log, logSuccess } from "../utils/logger.js";
+import { log } from "../utils/logger.js";
 import deployTerraform from "../utils/deployTerraform.js";
 
 const deploy = async () => {
