@@ -1,3 +1,5 @@
+variable "repository_url" {}
+
 resource "aws_ecs_task_definition" "backend_task" {
     family = "backend_example_app_family"
 
@@ -21,7 +23,7 @@ resource "aws_ecs_task_definition" "backend_task" {
         "essential": true,
         "portMappings": [
             {
-                "containerPort": 4000,
+                "containerPort": ${var.port},
                 "hostPort": 4000
             }
         ]

@@ -1,4 +1,5 @@
 variable "aws_region" {}
+variable "port" {}
 
 output "aws_ecr_repository" {
   value = module.ecr.aws_ecr_repository
@@ -15,6 +16,7 @@ module "ecr" {
 
 module "ecs" {
   source = "./ecs"
+  port = var.port
   aws_region = var.aws_region
   repository_url = module.ecr.aws_ecr_repository
 }

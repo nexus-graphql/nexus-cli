@@ -1,3 +1,6 @@
+variable "aws_region" {}
+variable "port" {}
+
 resource "aws_vpc" "vpc_example_app" {
     cidr_block = "10.0.0.0/16"
     enable_dns_hostnames = true
@@ -33,7 +36,7 @@ resource "aws_security_group" "security_group_example_app" {
 
     ingress {
         from_port = 80
-        to_port = 4000
+        to_port = "${var.port}"
         protocol = "tcp"
         cidr_blocks = ["0.0.0.0/0"]
     }

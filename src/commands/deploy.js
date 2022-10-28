@@ -3,8 +3,8 @@
 */
 
 import inquirer from "inquirer";
-import { log, logSuccess } from "../utils/logger.js";
-import deployTerraform from "../utils/deployTerraform.js";
+import { log } from "../utils/logger.js";
+import createECS from "../utils/createECS.js";
 
 const deploy = async () => {
   const answer = await inquirer.prompt([
@@ -19,7 +19,7 @@ const deploy = async () => {
 
   if (answer.deploymentType === "AWS") {
     log("Getting your server ready to deploy");
-    deployTerraform();
+    createECS();
   } else {
     console.log("We don't have this set up yet :)");
   }
