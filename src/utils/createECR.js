@@ -13,10 +13,6 @@ export default async () => {
     stdio: "inherit",
     encoding: "utf-8",
   });
-  execSync("terraform plan -target=module.ecr", {
-    stdio: "inherit",
-    encoding: "utf-8",
-  });
   execSync("terraform apply -target=module.ecr", {
     stdio: "inherit",
     encoding: "utf-8",

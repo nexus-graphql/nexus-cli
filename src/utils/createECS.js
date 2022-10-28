@@ -5,10 +5,6 @@ export default async () => {
     stdio: "inherit",
     encoding: "utf-8",
   });
-  execSync("terraform plan --target=module.ecs", {
-    stdio: "inherit",
-    encoding: "utf-8",
-  });
   execSync("terraform apply --target=module.ecs", {
     stdio: "inherit",
     encoding: "utf-8",
