@@ -1,6 +1,3 @@
-variable "aws_region" {}
-variable "port" {}
-
 resource "aws_vpc" "vpc_example_app" {
     cidr_block = "10.0.0.0/16"
     enable_dns_hostnames = true
