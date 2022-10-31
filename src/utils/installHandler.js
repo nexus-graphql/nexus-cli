@@ -7,8 +7,8 @@ export default (handlerName) => {
     openapi: "@graphql-mesh/openapi",
   };
 
-  execSync(`npm install ${handlers[handlerName]}`, {
-    stdio: "inherit",
+  execSync(`npm install ${handlers[handlerName]} --loglevel=error`, {
+    /* stdio: "inherit", */
     encoding: "utf-8",
   });
 };
