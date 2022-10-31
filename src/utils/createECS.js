@@ -23,6 +23,4 @@ export default async () => {
       encoding: "utf-8",
     }
   );
-
-  console.log(cwd());
 };
