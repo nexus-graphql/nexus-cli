@@ -8,6 +8,7 @@ import build from "../src/commands/build.js";
 import deploy from "../src/commands/deploy.js";
 import destroy from "../src/commands/destroy.js";
 import testingBackend from "../src/commands/testingBackend.js";
+import startDashboard from "../src/commands/startDashboard.js";
 
 program
   .command("init")
@@ -47,5 +48,10 @@ program
   .command("backend")
   .description("testing backend")
   .action(testingBackend);
+
+program
+  .command("start dashboard")
+  .description("Start admin dashboard")
+  .action(startDashboard);
 
 program.parse(process.argv);

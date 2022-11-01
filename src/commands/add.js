@@ -1,6 +1,7 @@
 import inquirer from "inquirer";
 import { asciiArt, logSuccess } from "../utils/logger.js";
 import installHandler from "../utils/installHandler.js";
+
 import {
   addGraphqlSourceToConfig,
   addPostgresSourceToConfig,

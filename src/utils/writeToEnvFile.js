@@ -5,6 +5,5 @@ export default (data) => {
   const path = `${cwd()}/env.json`;
   let envJSON = JSON.parse(readFileSync(path));
   envJSON = { ...envJSON, ...data };
-  console.log(envJSON);
   writeFileSync(path, JSON.stringify(envJSON), "utf8");
 };
