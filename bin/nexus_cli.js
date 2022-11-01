@@ -50,7 +50,7 @@ program
   .action(testingBackend);
 
 program
-  .command("start dashboard")
+  .command("dashboard")
   .description("Start admin dashboard")
   .action(startDashboard);
 

@@ -15,3 +15,5 @@ transforms:
           composer: ./src/composers/isAuth.js#isAuth
         - resolver: "Subscription.*"
           composer: ./src/composers/isAuth.js#isAuth
+serve:
+  browser: false

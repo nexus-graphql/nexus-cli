@@ -1,6 +1,11 @@
-// import inquirer from "inquirer";
-// import runBackendDashboard from "../utils/runBackendDashboard";
+import { exec } from "child_process";
+import open from "open";
+import { cwd } from "process";
 
 export default async () => {
-  console.log("We are still figuring that out");
+  const server = exec(`concurrently "npx mesh dev" "nexus-dashboard ${cwd()}"`);
+  (async () => open("http://localhost:3001"))();
+  server.stdout.on("data", (data) => {
+    console.log(`${data}`);
+  });
 };

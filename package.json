@@ -7,7 +7,8 @@
     "lint": "eslint ."
   },
   "bin": {
-    "nexus": "bin/nexus_cli.js"
+    "nexus": "bin/nexus_cli.js",
+    "nexus-dashboard": "./backend/index.js"
   },
   "keywords": [],
   "author": "Felicia Bacon",
@@ -19,6 +20,7 @@
     "inquirer": "^9.1.3",
     "js-yaml": "^4.1.0",
     "nanospinner": "^1.1.0",
+    "open": "^8.4.0",
     "pg-promise": "^10.12.1",
     "uuid": "^9.0.0"
   },
