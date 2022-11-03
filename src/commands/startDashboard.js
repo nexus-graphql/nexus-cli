@@ -3,8 +3,10 @@ import open from "open";
 import { cwd } from "process";
 
 export default async () => {
-  const server = exec(`concurrently "npx mesh dev" "nexus-dashboard ${cwd()}"`);
-  (async () => open("http://localhost:3001"))();
+  const server = exec(`nexus-dashboard ${cwd()}`);
+  setTimeout(() => {
+    open("http://localhost:3001");
+  }, 1000);
   server.stdout.on("data", (data) => {
     console.log(`${data}`);
   });
