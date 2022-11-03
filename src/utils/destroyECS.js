@@ -12,7 +12,6 @@ export default async () => {
   chdir(directory);
 
   execSync(
-    `terraform destroy -var=aws_region=${envJSON.awsRegion} -var=port=${envJSON.port} -auto-approve`,
-    { stdio: "inherit" }
+    `terraform destroy -var=aws_region=${envJSON.awsRegion} -var=port=${envJSON.port} -auto-approve`
   );
 };

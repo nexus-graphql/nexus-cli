@@ -1,6 +1,6 @@
 import inquirer from "inquirer";
-import { log, logSuccess } from "../utils/logger.js";
 import destroyECS from "../utils/destroyECS.js";
+import { log, logSuccess } from "../utils/logger.js";
 
 const destroy = async () => {
   const answer = await inquirer.prompt([
@@ -14,7 +14,11 @@ const destroy = async () => {
   ]);
 
   if (answer.destroy === "yes") {
+    log("We are destroying your infrastructure");
     destroyECS();
+    logSuccess(
+      "Your infrastructure has been destroyed, this can take up to a few minutes."
+    );
   }
 };
 

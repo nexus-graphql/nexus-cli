@@ -7,7 +7,7 @@ export default async () => {
   // in terraform files this needs to be updated
   const currentURL = getURL();
 
-  log("Redeploying your image");
+  log("Redeploying your image, this may take several minutes...");
   execSync(
     "aws ecs update-service --cluster backend_cluster_example_app --service backend_service --force-new-deployment"
   );

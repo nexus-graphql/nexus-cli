@@ -32,6 +32,9 @@ const deploy = async () => {
         logSuccess(
           `Your server has been successfully deployed! Your URL is ${url} `
         );
+        // reminder to add this when merged
+        // log("Starting the dashboard!");
+        // exec("npx dashboard");
       }
     }, 5000);
   }
