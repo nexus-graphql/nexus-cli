@@ -4,7 +4,6 @@ import { program } from "commander";
 import init from "../src/commands/init.js";
 import dev from "../src/commands/dev.js";
 import add from "../src/commands/add.js";
-import build from "../src/commands/build.js";
 import deploy from "../src/commands/deploy.js";
 import destroy from "../src/commands/destroy.js";
 import testingBackend from "../src/commands/testingBackend.js";
