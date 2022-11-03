@@ -24,7 +24,7 @@ resource "aws_ecs_task_definition" "backend_task" {
         "portMappings": [
             {
                 "containerPort": ${var.port},
-                "hostPort": 4000
+                "hostPort": ${var.port}
             }
         ]
     }

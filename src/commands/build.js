@@ -22,17 +22,9 @@ const build = async () => {
       message: "What would you like to name your docker image?",
     },
     {
-      name: "deploymentType",
-      type: "list",
-      message: "Would you like to deploy on AWS or Google Cloud?",
-      choices: ["AWS", "Google Cloud"],
-      default: 0,
-    },
-    {
       name: "awsRegion",
       type: "list",
       message: "What region would you like to deploy to?",
-      when: (input) => input.deploymentType === "AWS",
       choices: ["us-east-1", "us-west-1"],
       default: 0,
     },

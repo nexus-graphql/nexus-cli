@@ -5,23 +5,23 @@
 import inquirer from "inquirer";
 import { log } from "../utils/logger.js";
 import createECS from "../utils/createECS.js";
+import build from "./build.js";
 
 const deploy = async () => {
   const answer = await inquirer.prompt([
     {
-      name: "deploymentType",
+      name: "deploymentRes",
       type: "list",
-      message: "Would you like to deploy on AWS or Google Cloud?",
-      choices: ["AWS", "Google Cloud"],
+      message: "Are you sure you want to deploy?",
+      choices: ["Yes", "No"],
       default: 0,
     },
   ]);
 
-  if (answer.deploymentType === "AWS") {
-    log("Getting your server ready to deploy");
+  if (answer.deploymentRes === "Yes") {
+    log("Getting ready to deploy your server");
+    await build();
     createECS();
-  } else {
-    console.log("We don't have this set up yet :)");
   }
 };
 

@@ -29,12 +29,6 @@ program
   .action(add);
 
 program
-  .command("build")
-  .alias("b")
-  .description("Generating Docker image to deploy to your private repository")
-  .action(build);
-
-program
   .command("deploy")
   .description("Starts deployment process")
   .action(deploy);

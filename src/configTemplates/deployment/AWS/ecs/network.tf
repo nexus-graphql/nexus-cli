@@ -32,9 +32,9 @@ resource "aws_security_group" "security_group_example_app" {
     vpc_id = "${aws_vpc.vpc_example_app.id}"
 
     ingress {
-        from_port = 80
-        to_port = "${var.port}"
         protocol = "tcp"
+        from_port = "${var.port}"
+        to_port = "${var.port}"
         cidr_blocks = ["0.0.0.0/0"]
     }
 
