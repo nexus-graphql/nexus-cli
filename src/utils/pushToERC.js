@@ -3,12 +3,8 @@ import { readFileSync } from "fs";
 import { cwd } from "process";
 
 export default async () => {
-  const getAcctData = () => {
-    const data = execSync("aws sts get-caller-identity");
-    return data;
-  };
-
-  const acctNum = JSON.parse(getAcctData()).Account;
+  const acctData = JSON.parse(execSync("aws sts get-caller-identity"));
+  const acctNum = acctData.Account;
   const envJSON = JSON.parse(readFileSync(`${cwd()}/env.json`));
   const url = `${acctNum}.dkr.ecr.${envJSON.awsRegion}.amazonaws.com/ecr_example_repo`;
 

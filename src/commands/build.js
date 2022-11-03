@@ -31,13 +31,16 @@ const build = async () => {
   ]);
 
   writeToEnvFile(inputs);
-  log("Getting your server ready for deployment...");
+  log("Creating your docker image");
   createDockerfile(inputs.port);
   createDockerImage(inputs.imageName);
-  logSuccess("Your server is ready for deployment!");
-
+  logSuccess("Docker image created!");
+  log("Creating an AWS ECR repo");
   createECR();
+  logSuccess("AWS ECR repo created!");
+  log("Pushing your docker image to your AWS ECR repo");
   pushToERC();
+  logSuccess("Your docker image has been pushed!");
 };
 
 export default async () => {

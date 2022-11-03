@@ -3,7 +3,7 @@
 */
 
 import inquirer from "inquirer";
-import { log } from "../utils/logger.js";
+import { log, logSuccess } from "../utils/logger.js";
 import createECS from "../utils/createECS.js";
 import build from "./build.js";
 
@@ -19,9 +19,11 @@ const deploy = async () => {
   ]);
 
   if (answer.deploymentRes === "Yes") {
-    log("Getting ready to deploy your server");
+    log("Getting your server ready for deployment");
     await build();
+    log("Provisioning your AWS ECS/Fargate resources");
     createECS();
+    logSuccess("Your server has been successfully deployed!");
   }
 };
 

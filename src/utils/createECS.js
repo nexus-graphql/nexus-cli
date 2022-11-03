@@ -13,13 +13,11 @@ export default async () => {
   chdir(directory);
 
   execSync("terraform init --target=module.ecs", {
-    stdio: "inherit",
     encoding: "utf-8",
   });
   execSync(
     `terraform apply --target=module.ecs -var=aws_region=${envJSON.awsRegion} -var=port=${envJSON.port} -auto-approve`,
     {
-      stdio: "inherit",
       encoding: "utf-8",
     }
   );
