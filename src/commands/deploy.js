@@ -6,6 +6,7 @@ import inquirer from "inquirer";
 import { log, logSuccess } from "../utils/logger.js";
 import createECS from "../utils/createECS.js";
 import build from "./build.js";
+import getURL from "../utils/getURL.js";
 
 const deploy = async () => {
   const answer = await inquirer.prompt([
@@ -22,8 +23,17 @@ const deploy = async () => {
     log("Getting your server ready for deployment");
     await build();
     log("Provisioning your AWS ECS/Fargate resources");
-    createECS();
-    logSuccess("Your server has been successfully deployed!");
+    await createECS();
+
+    const tryURL = setInterval(() => {
+      if (getURL()) {
+        const url = getURL();
+        clearInterval(tryURL);
+        logSuccess(
+          `Your server has been successfully deployed! Your URL is ${url} `
+        );
+      }
+    }, 5000);
   }
 };
 

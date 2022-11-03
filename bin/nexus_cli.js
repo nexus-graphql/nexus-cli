@@ -8,6 +8,7 @@ import deploy from "../src/commands/deploy.js";
 import destroy from "../src/commands/destroy.js";
 import testingBackend from "../src/commands/testingBackend.js";
 import startDashboard from "../src/commands/startDashboard.js";
+import redeploy from "../src/commands/redeploy.js";
 
 program
   .command("init")
@@ -46,5 +47,10 @@ program
   .command("dashboard")
   .description("Start admin dashboard")
   .action(startDashboard);
+
+program
+  .command("redeploy")
+  .description("Redeploying the new changes")
+  .action(redeploy);
 
 program.parse(process.argv);
