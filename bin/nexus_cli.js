@@ -31,6 +31,10 @@ program
 program
   .command("deploy")
   .description("Starts deployment process")
+  .argument(
+    "autoValidate",
+    "auto validate when calling from the admin dashboard"
+  )
   .action(deploy);
 
 program

@@ -4,23 +4,26 @@ import pushToERC from "../utils/pushToERC.js";
 import { log, logSuccess } from "../utils/logger.js";
 import createNewTask from "../utils/createNewTask.js";
 
-const redeploy = async () => {
-  const answer = await inquirer.prompt([
-    {
-      name: "changeRes",
-      type: "list",
-      message: "Have all of your changes been made?",
-      choices: ["Yes", "No"],
-      default: 0,
-    },
-    {
-      name: "redeploymentRes",
-      type: "list",
-      message: "Are you ready to redeploy?",
-      when: (input) => input.changeRes === "Yes",
-      choices: ["Yes", "No"],
-    },
-  ]);
+const redeploy = async (prefilledAnswers) => {
+  const answer = await inquirer.prompt(
+    [
+      {
+        name: "changeRes",
+        type: "list",
+        message: "Have all of your changes been made?",
+        choices: ["Yes", "No"],
+        default: 0,
+      },
+      {
+        name: "redeploymentRes",
+        type: "list",
+        message: "Are you ready to redeploy?",
+        when: (input) => input.changeRes === "Yes",
+        choices: ["Yes", "No"],
+      },
+    ],
+    prefilledAnswers
+  );
 
   if (answer.changeRes === "No") {
     console.log("Please make all changes prior to redeploying");
@@ -33,6 +36,10 @@ const redeploy = async () => {
   }
 };
 
-export default async () => {
-  await redeploy();
+export default async (autoValidate) => {
+  let prefilledAnswers = {};
+  if (autoValidate) {
+    prefilledAnswers = { changeRes: "Yes", redploymentRes: "Yes" };
+  }
+  await redeploy(prefilledAnswers);
 };
