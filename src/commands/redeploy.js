@@ -41,7 +41,7 @@ const redeploy = async (prefilledAnswers) => {
 export default async (autoValidate) => {
   let prefilledAnswers = {};
   if (autoValidate) {
-    prefilledAnswers = { changeRes: "Yes", redploymentRes: "Yes" };
+    prefilledAnswers = { changeRes: "Yes", redeploymentRes: "Yes" };
   }
   await redeploy(prefilledAnswers);
 };

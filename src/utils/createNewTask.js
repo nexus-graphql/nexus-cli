@@ -22,7 +22,7 @@ export default async () => {
     if (url) {
       clearInterval(tryURL);
       logSuccess(
-        `Your server has been successfully redeployed! Your new URL is ${url} `
+        `Your server has been successfully redeployed! Your new URL is ${url}`
       );
     }
   }, 5000);
