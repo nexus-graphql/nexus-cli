@@ -1,7 +1,7 @@
 <!-- # ![Nexus-Logo](https://github.com/Capstone-Team4/nexus-dashboard/blob/main/frontend/src/logo.png)
  -->
 <p align="center">
-  <img width="400px" src="https://github.com/Capstone-Team4/nexus-cli/blob/main/images/logo.png" alt="Nexus" />
+  <img width="400px" src="https://github.com/Capstone-Team4/nexus-cli/blob/readme/images/logo.png" alt="Nexus" />
 </p>
 
 <p align="center">A GraphQL Backend-as-a-Service</p>
