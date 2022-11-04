@@ -6,7 +6,6 @@ import dev from "../src/commands/dev.js";
 import add from "../src/commands/add.js";
 import deploy from "../src/commands/deploy.js";
 import destroy from "../src/commands/destroy.js";
-import testingBackend from "../src/commands/testingBackend.js";
 import startDashboard from "../src/commands/startDashboard.js";
 import redeploy from "../src/commands/redeploy.js";
 
@@ -32,7 +31,7 @@ program
   .command("deploy")
   .description("Starts deployment process")
   .argument(
-    "autoValidate",
+    "[autoValidate]",
     "auto validate when calling from the admin dashboard"
   )
   .action(deploy);
@@ -40,12 +39,11 @@ program
 program
   .command("destroy")
   .description("Destroy your ECS Fargate Infrastructure")
+  .argument(
+    "[autoValidate]",
+    "auto validate when calling from the admin dashboard"
+  )
   .action(destroy);
-
-program
-  .command("backend")
-  .description("testing backend")
-  .action(testingBackend);
 
 program
   .command("dashboard")
@@ -55,6 +53,10 @@ program
 program
   .command("redeploy")
   .description("Redeploying the new changes")
+  .argument(
+    "[autoValidate]",
+    "auto validate when calling from the admin dashboard"
+  )
   .action(redeploy);
 
 program.parse(process.argv);

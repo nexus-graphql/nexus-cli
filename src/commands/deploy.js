@@ -1,12 +1,9 @@
-/*
-  Starting to deploy to AWS
-*/
-
 import inquirer from "inquirer";
 import { log, logSuccess } from "../utils/logger.js";
 import createECS from "../utils/createECS.js";
 import build from "./build.js";
 import getURL from "../utils/getURL.js";
+import writeToEnvFile from "../utils/writeToEnvFile.js";
 
 const deploy = async (prefilledAnswersDeploy, prefilledAnswersBuild) => {
   const answer = await inquirer.prompt(
@@ -32,6 +29,7 @@ const deploy = async (prefilledAnswersDeploy, prefilledAnswersBuild) => {
       if (getURL()) {
         const url = getURL();
         clearInterval(tryURL);
+        writeToEnvFile({ localChanges: false });
         logSuccess(
           `Your server has been successfully deployed! Your URL is ${url} `
         );

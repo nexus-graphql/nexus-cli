@@ -3,6 +3,7 @@ import createNewImage from "../utils/updateDockerImage.js";
 import pushToERC from "../utils/pushToERC.js";
 import { log, logSuccess } from "../utils/logger.js";
 import createNewTask from "../utils/createNewTask.js";
+import writeToEnvFile from "../utils/writeToEnvFile.js";
 
 const redeploy = async (prefilledAnswers) => {
   const answer = await inquirer.prompt(
@@ -33,6 +34,7 @@ const redeploy = async (prefilledAnswers) => {
     pushToERC();
     logSuccess("Your docker image has been pushed!");
     createNewTask();
+    writeToEnvFile({ localChanges: false });
   }
 };
 

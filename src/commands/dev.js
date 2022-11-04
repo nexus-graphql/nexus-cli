@@ -19,7 +19,7 @@ const dev = async () => {
   ]);
 
   log(`Starting your server on port ${input.port}...\n`);
-  mesh.dev(input.port);
+  await mesh.dev(input.port);
 };
 
 export default async () => {

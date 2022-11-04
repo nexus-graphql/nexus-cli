@@ -1,6 +1,7 @@
 import inquirer from "inquirer";
 import { asciiArt, logSuccess } from "../utils/logger.js";
 import installHandler from "../utils/installHandler.js";
+import writeToEnvFile from "../utils/writeToEnvFile.js";
 
 import {
   addGraphqlSourceToConfig,
@@ -85,6 +86,7 @@ const add = async () => {
     addOpenapiSourceToConfig(answers.name, answers.openApiSource);
   }
 
+  writeToEnvFile({ localChanges: true });
   logSuccess(`Successfully added your ${answers.dataSourceType} data source!`);
 };
 
