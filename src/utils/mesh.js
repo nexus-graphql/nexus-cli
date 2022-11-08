@@ -16,7 +16,7 @@ const dev = async (port) => {
 
   setTimeout(() => {
     open(`http://localhost:${port}`);
-  }, 1000);
+  }, 3000);
 
   child.stdout.on("data", (data) => {
     console.log(data);

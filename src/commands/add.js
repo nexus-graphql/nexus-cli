@@ -1,6 +1,5 @@
 import inquirer from "inquirer";
 import { asciiArt, logSuccess } from "../utils/logger.js";
-import installHandler from "../utils/installHandler.js";
 import writeToEnvFile from "../utils/writeToEnvFile.js";
 
 import {
@@ -77,12 +76,10 @@ const add = async () => {
   ]);
 
   if (answers.dataSourceType === "graphql") {
-    installHandler("graphql");
     addGraphqlSourceToConfig(answers.name, answers.graphqlEndpoint);
   } else if (answers.dataSourceType === "postgres") {
     addPostgresSourceToConfig(answers.name, answers.postgresConnectionString);
   } else if (answers.dataSourceType === "openApi") {
-    installHandler("openapi");
     addOpenapiSourceToConfig(answers.name, answers.openApiSource);
   }
 

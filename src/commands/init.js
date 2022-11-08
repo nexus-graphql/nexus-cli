@@ -55,6 +55,8 @@ const init = async () => {
 
   log("Installing mesh handlers...\n");
   installHandler("postgres");
+  installHandler("graphql");
+  installHandler("openapi");
 
   log("Generating mesh server...\n");
   createMeshConfig(input.name, input.connectionString);
