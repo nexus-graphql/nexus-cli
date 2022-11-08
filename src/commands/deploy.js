@@ -4,6 +4,7 @@ import createECS from "../utils/createECS.js";
 import build from "./build.js";
 import getURL from "../utils/getURL.js";
 import writeToEnvFile from "../utils/writeToEnvFile.js";
+import launchDashboard from "../utils/launchDashboard.js";
 
 const deploy = async (prefilledAnswersDeploy, prefilledAnswersBuild) => {
   const answer = await inquirer.prompt(
@@ -33,9 +34,9 @@ const deploy = async (prefilledAnswersDeploy, prefilledAnswersBuild) => {
         logSuccess(
           `Your server has been successfully deployed! Your URL is ${url} `
         );
-        // reminder to add this when merged
-        // log("Starting the dashboard!");
-        // exec("npx dashboard");
+
+        log("Starting your admin dashboard on port 3001");
+        launchDashboard();
       }
     }, 5000);
   }
