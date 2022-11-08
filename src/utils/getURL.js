@@ -2,6 +2,7 @@ import { execSync } from "child_process";
 
 export default () => {
   let url = "";
+
   try {
     const arn = JSON.parse(
       execSync("aws ecs list-tasks --cluster backend_cluster_example_app")

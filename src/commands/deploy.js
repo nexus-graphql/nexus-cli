@@ -4,7 +4,6 @@ import createECS from "../utils/createECS.js";
 import build from "./build.js";
 import getURL from "../utils/getURL.js";
 import writeToEnvFile from "../utils/writeToEnvFile.js";
-import launchDashboard from "../utils/launchDashboard.js";
 
 const deploy = async (prefilledAnswersDeploy, prefilledAnswersBuild) => {
   const answer = await inquirer.prompt(
@@ -27,16 +26,13 @@ const deploy = async (prefilledAnswersDeploy, prefilledAnswersBuild) => {
     await createECS();
 
     const tryURL = setInterval(() => {
-      if (getURL()) {
-        const url = getURL();
+      const url = getURL();
+      if (url) {
         clearInterval(tryURL);
         writeToEnvFile({ localChanges: false });
         logSuccess(
           `Your server has been successfully deployed! Your URL is ${url} `
         );
-
-        log("Starting your admin dashboard on port 3001");
-        launchDashboard();
       }
     }, 5000);
   }

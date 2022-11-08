@@ -1,5 +1,5 @@
 import { execSync } from "child_process";
-import { chdir, cwd } from "process";
+import { cwd } from "process";
 import { readFileSync } from "fs";
 import path, { resolve } from "path";
 import { fileURLToPath } from "url";
@@ -10,15 +10,16 @@ export default async () => {
   const filename = fileURLToPath(import.meta.url);
   const dirname = path.dirname(filename);
   const directory = resolve(dirname, "../configTemplates/deployment/AWS");
-  chdir(directory);
 
   execSync("terraform init --target=module.ecs", {
     encoding: "utf-8",
+    cwd: directory,
   });
   execSync(
     `terraform apply --target=module.ecs -var=aws_region=${envJSON.awsRegion} -var=port=${envJSON.port} -auto-approve`,
     {
       encoding: "utf-8",
+      cwd: directory,
     }
   );
 };
