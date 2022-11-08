@@ -1,6 +1,7 @@
 import { cwd } from "process";
 import { execSync } from "child_process";
 import { existsSync } from "fs";
+import installDashboard from "./installDashboard.js";
 
 export default () => {
   execSync("npm init -y", { encoding: "utf-8" });
@@ -13,4 +14,6 @@ export default () => {
     execSync("mkdir ./src", { encoding: "utf-8" });
     execSync("mkdir ./src/composers", { encoding: "utf-8" });
   }
+
+  installDashboard();
 };
