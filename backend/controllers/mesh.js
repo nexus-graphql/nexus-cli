@@ -6,6 +6,8 @@ const {
   addDataSource,
   deleteDataSource,
   updateDataSource,
+  getLocalChanges,
+  setLocalChanges,
 } = require("../utils/mesh");
 
 meshRouter.get("/auth", (_, res) => {
@@ -33,6 +35,15 @@ meshRouter.put("/datasources", (req, res) => {
 meshRouter.delete("/datasources", (req, res) => {
   deleteDataSource(req.body.name);
   res.status(201).json({ sources: getDataSources() });
+});
+
+meshRouter.get("/localchanges", (req, res) => {
+  res.status(200).json({ localChanges: getLocalChanges() });
+});
+
+meshRouter.post("/localchanges", (req, res) => {
+  setLocalChanges(req.body.localChanges);
+  res.status(200).json({ localChanges: req.body.localChanges });
 });
 
 module.exports = meshRouter;

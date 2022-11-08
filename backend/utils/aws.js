@@ -1,10 +1,18 @@
 const { execSync } = require("child_process");
 
 const getARN = () => {
-  let buffer = execSync(
-    "aws ecs list-tasks --cluster backend_cluster_example_app"
-  );
-  return JSON.parse(buffer.toString()).taskArns[0];
+  try {
+    let buffer = execSync(
+      "aws ecs list-tasks --cluster backend_cluster_example_app"
+    );
+    if (JSON.parse(buffer.toString()).taskArns.length > 1) {
+      return JSON.parse(buffer.toString()).taskArns[1];
+    } else {
+      return JSON.parse(buffer.toString()).taskArns[0];
+    }
+  } catch (error) {
+    return;
+  }
 };
 
 const getENI = (arn) => {

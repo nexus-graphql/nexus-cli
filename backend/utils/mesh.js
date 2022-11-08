@@ -97,6 +97,18 @@ const getDataSources = () => {
   return transformedSources;
 };
 
+const getLocalChanges = () => {
+  let envJSON = JSON.parse(readFileSync(envPath));
+  return envJSON.localChanges;
+};
+
+const setLocalChanges = (bool) => {
+  let envJSON = JSON.parse(readFileSync(envPath));
+  envJSON.localChanges = bool;
+  writeFileSync(envPath, JSON.stringify(envJSON), "utf8");
+  return bool;
+};
+
 module.exports = {
   getAuthorization,
   resetAuthorization,
@@ -104,4 +116,6 @@ module.exports = {
   addDataSource,
   deleteDataSource,
   updateDataSource,
+  getLocalChanges,
+  setLocalChanges,
 };
