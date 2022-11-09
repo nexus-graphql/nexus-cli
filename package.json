@@ -11,7 +11,7 @@
     "nexus-dashboard": "./backend/index.js"
   },
   "keywords": [],
-  "author": "Felicia Bacon", "Benjamin Perrault",
+  "author": "Felicia Bacon",
   "license": "ISC",
   "dependencies": {
     "chalk": "^5.1.0",
