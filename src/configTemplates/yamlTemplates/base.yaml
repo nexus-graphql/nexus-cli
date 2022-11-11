@@ -17,6 +17,8 @@ transforms:
           composer: ./src/composers/isAuth.js#isAuth
         - resolver: "Subscription.*"
           composer: ./src/composers/isAuth.js#isAuth
+additionalResolvers:
+additionalTypeDefs:
 serve:
   browser: false
   playgroundTitle: Nexus
