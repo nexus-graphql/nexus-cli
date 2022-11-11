@@ -4,3 +4,5 @@ handler:
     connectionString:
     options:
       simpleCollections: only
+    appendPlugins:
+      - postgraphile-plugin-connection-filter

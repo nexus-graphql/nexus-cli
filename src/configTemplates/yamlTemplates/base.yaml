@@ -5,6 +5,8 @@ sources:
         connectionString:
         options:
           simpleCollections: only
+        appendPlugins:
+          - postgraphile-plugin-connection-filter
 transforms:
   - resolversComposition:
       mode: wrap
@@ -17,3 +19,4 @@ transforms:
           composer: ./src/composers/isAuth.js#isAuth
 serve:
   browser: false
+  playgroundTitle: Nexus
