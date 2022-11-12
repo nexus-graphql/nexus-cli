@@ -69,6 +69,6 @@ const init = async () => {
 };
 
 export default async () => {
-  asciiArt("GraphQL");
+  asciiArt("Nexus");
   await init();
 };
