@@ -33,5 +33,22 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0"
   },
-  "description": ""
+  "contributors": [
+    {
+      "name": "Felicia Bacon",
+      "github": "<https://github.com/feliciaiveliz>"
+    },
+    {
+      "name": "Benjamin Perrault",
+      "github": "<https://github.com/918benjamin>"
+    },
+    {
+      "name": "Matt Malane",
+      "github": "<https://github.com/mattmalane>"
+    },
+    {
+      "name": "Kim Ramirez",
+      "github": "<https://github.com/KimberlyRamirez>"
+    }
+  ]
 }
