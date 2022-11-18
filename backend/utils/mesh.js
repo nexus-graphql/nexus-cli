@@ -4,6 +4,9 @@ const { v4: uuidv4 } = require("uuid");
 const postgresTemplate = require("../templates/postgres.js");
 const graphqlTemplate = require("../templates/graphql.js");
 const openapiTemplate = require("../templates/openapi.js");
+const { loadSchemaSync } = require("@graphql-tools/load");
+const { GraphQLFileLoader } = require("@graphql-tools/graphql-file-loader");
+const { env } = require("process");
 
 const { load, dump } = pkg;
 const userDirectory = process.argv[2];
@@ -109,6 +112,159 @@ const setLocalChanges = (bool) => {
   return bool;
 };
 
+const addTypeDef = (typeDef) => {
+  let envJSON = JSON.parse(readFileSync(envPath));
+
+  if (!envJSON.additionalTypeDefs) {
+    envJSON.additionalTypeDefs = {};
+  }
+
+  const key = `${typeDef.newField}${typeDef.extendType}`;
+  envJSON.additionalTypeDefs[key] = typeDef;
+
+  writeAdditionalTypeDefs(envJSON.additionalTypeDefs);
+
+  writeFileSync(envPath, JSON.stringify(envJSON), "utf8");
+};
+
+const removeTypeDef = (id) => {
+  let envJSON = JSON.parse(readFileSync(envPath));
+
+  delete envJSON.additionalTypeDefs[id];
+
+  writeAdditionalTypeDefs(envJSON.additionalTypeDefs);
+
+  writeFileSync(envPath, JSON.stringify(envJSON), "utf8");
+};
+
+const typeDefTemplate = ({
+  extendType,
+  newField,
+  newFieldType,
+  source,
+  filterField,
+  extendTypeField,
+}) => {
+  const typeDef = `extend type ${extendType} {
+  ${newField}: ${newFieldType}
+}`;
+
+  const resolver = {
+    targetTypeName: extendType,
+    targetFieldName: newField,
+    sourceName: source,
+    sourceTypeName: "Query",
+    sourceFieldName: `all${newFieldType}sList`,
+    keyField: `${extendTypeField}`,
+    keysArg: `filter.${filterField}.in`,
+  };
+
+  return { typeDef, resolver };
+};
+
+const writeAdditionalTypeDefs = (typeDefs) => {
+  const meshrc = load(readFileSync(meshrcPath));
+
+  let typeDefsString = "";
+  const resolvers = [];
+
+  Object.keys(typeDefs).forEach((key, index) => {
+    const template = typeDefTemplate(typeDefs[key]);
+
+    if (index === 0) {
+      typeDefsString += `${template.typeDef}`;
+    } else {
+      typeDefsString += `\n${template.typeDef}`;
+    }
+
+    resolvers.push(template.resolver);
+  });
+
+  meshrc.additionalTypeDefs = typeDefsString;
+  meshrc.additionalResolvers = resolvers;
+
+  writeFileSync(meshrcPath, dump(meshrc), "utf8");
+};
+
+const getPostgresDataSourceNames = () => {
+  const meshrc = load(readFileSync(meshrcPath));
+  let names = [];
+  meshrc.sources.forEach((dataSource) => {
+    if (dataSource.handler.postgraphile) {
+      names.push(dataSource.name);
+    }
+  });
+  return names;
+};
+
+const loadSchemas = () => {
+  const names = getPostgresDataSourceNames();
+  let schemas = {};
+  names.forEach((name) => {
+    schemas[name] = loadSchemaSync(
+      `${userDirectory}/.mesh/sources/${name}/schema.graphql`,
+      {
+        loaders: [new GraphQLFileLoader()],
+      }
+    );
+  });
+  return schemas;
+};
+
+const getSchemas = () => {
+  let schemas = loadSchemas();
+  let result = {};
+  for (const name in schemas) {
+    let schema = schemas[name];
+    let queryFields = Object.keys(schema._queryType._fields);
+    queryFields = queryFields
+      .filter((field) => {
+        return !["query", "nodeId", "node"].includes(field);
+      })
+      .map((field) => {
+        return field.slice(0, 1).toUpperCase() + field.slice(1);
+      });
+
+    // filter schema._typeMap by whether or not the current key is included queryFields
+    let types = [];
+    for (const key in schema._typeMap) {
+      if (queryFields.includes(key)) {
+        types.push(key);
+      }
+    }
+
+    let obj = {};
+    types.forEach((type) => {
+      let fields = Object.keys(schema._typeMap[type]._fields).filter((key) => {
+        return key !== "nodeId" && !key.match(/.+By.+Id.*/);
+      });
+      obj[type] = fields;
+    });
+    result[name] = obj;
+  }
+  return result;
+};
+
+const getTypeDefs = () => {
+  let envJSON = JSON.parse(readFileSync(envPath));
+
+  const typeDefs = {};
+  getPostgresDataSourceNames().forEach((name) => {
+    typeDefs[name] = [];
+  });
+
+  if (!envJSON.additionalTypeDefs) {
+    envJSON.additionalTypeDefs = {};
+  }
+
+  Object.keys(envJSON.additionalTypeDefs).forEach((key) => {
+    const typeDef = envJSON.additionalTypeDefs[key];
+    typeDefs[typeDef.extendSource].push(typeDef);
+  });
+
+  return typeDefs || [];
+};
+
 module.exports = {
   getAuthorization,
   resetAuthorization,
@@ -118,4 +274,8 @@ module.exports = {
   updateDataSource,
   getLocalChanges,
   setLocalChanges,
+  addTypeDef,
+  removeTypeDef,
+  getSchemas,
+  getTypeDefs,
 };

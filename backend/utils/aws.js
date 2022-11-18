@@ -28,7 +28,15 @@ const getIP = () => {
   if (!arn) {
     return { error: "No deployments" };
   }
-  const eni = getENI(arn);
+
+  let eni;
+  try {
+    eni = getENI(arn);
+  } catch (e) {
+    return {
+      status: "redeploying",
+    };
+  }
 
   let buffer = execSync(
     `aws ec2 describe-network-interfaces --network-interface-ids ${eni}`
