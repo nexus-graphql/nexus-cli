@@ -2,11 +2,11 @@
   <img width="800px" src="https://github.com/Capstone-Team4/nexus-cli/blob/main/images/logo.png" alt="Nexus" />
 </p>
 
-<p align="center">A GraphQL Backend-as-a-Service</p>
+<p align="center">A instant GraphQL API framework</p>
 
 ## What is Nexus?
 
-Nexus is a GraphQL Backend-as-a-Service. This is a great way for you and your team to test if Nexus is right for your project! With Nexus, you can easily generate a GraphQL server that connects to all of your data sources and test queries quickly on your own AWS infrastructure. Nexus takes your data sources, whether it be a Postgres Database, GraphQL API Endpoint, REST API or all three. The GraphQL we create for you creates a unified schema, giving your frontend team a single endpoint to make queries to. You can test your queries in your local development environment and when you're ready, we can take care of deploying your graphql backend to your AWS infrastructure. Once your backend is deployed to AWS, you will receive an API Endpoint, with which you can give to your frontend team to quickly make queries to. Take a look at our case study to learn more about GraphQL and how we built Nexus.
+Nexus is an open-source framework that generates and deploys a GraphQL API from a user’s existing data sources. We make the setup for the user easy by providing a CLI tool and admin dashboard. Data sources can be added, removed, and changed without writing any new code or schemas. Additionally, users can test the generated GraphQL server locally with an integrated graphical interface. This interface exposes the entire API’s documentation and serves as a playground for making test queries and viewing responses. Lastly, when the server is ready to deploy, Nexus automates deployment to AWS.
 
 ## The Team
 
