@@ -2,7 +2,7 @@
   <img width="800px" src="https://github.com/Capstone-Team4/nexus-cli/blob/main/images/logo.png" alt="Nexus" />
 </p>
 
-<p align="center">A instant GraphQL API framework</p>
+<p align="center">An instant GraphQL API framework</p>
 
 ## What is Nexus?
 
@@ -14,26 +14,26 @@ Nexus is an open-source framework that generates and deploys a GraphQL API from 
 
 **:man_technologist: Benjamin Perrault** _Software Engineer_ Tulsa, Oklahoma
 
-**:woman_technologist: Kimberly Ramirez** _Software Engineer_ Colorado
+**:woman_technologist: Kimberly Ramirez** _Software Engineer_ Fort Collins, Colorado
 
 **:man_technologist: Matthew Malane** _Software Engineer_ Huntington Beach, California
 
 ## :heavy_check_mark: Prerequisites
 
 - Docker (Make sure Docker Daemon is running)
-- AWS IAM Account
-- AWS CLI installed and configured
-- Node
-- NPM
+- AWS IAM Account with permissions to deploy resources
+- AWS CLI installed and configured with a profile for the IAM account
+- Node & NPM installed
+- Terraform CLI installed
 
 ## :desktop_computer: Commands
 
 | Commands          | Description                         |
 | ----------------- | ----------------------------------- |
 | `nexus init`      | Creates and configures your project |
-| `nexus add`       | Adds additional data sources        |
-| `nexus dev`       | Starts mesh server                  |
-| `nexus dashboard` | Starts dashboard                    |
+| `nexus add`       | Adds a data source to your server   |
+| `nexus dev`       | Starts server in development mode   |
+| `nexus dashboard` | Starts development dashboard        |
 | `nexus deploy`    | Deploys server to AWS               |
 | `nexus redeploy`  | Redeploys changes to AWS            |
 | `nexus destroy`   | Destroys AWS infrastructure         |
@@ -50,9 +50,9 @@ Nexus is an open-source framework that generates and deploys a GraphQL API from 
 
 ### 3. `mkdir <project directory name> && cd <project directory name>`
 
-- Create a new empty directory where you will run your project
+- Create a new empty directory where you will run your project. Change into that directory before initializing the project.
 
-### 4. `nexus init` or `nexus i`
+### 4. `nexus init`
 
 - Initializes your new project that contains a `.meshrc.yaml` configuration file. Nexus adds your data sources to this file to configure your GraphQL server.
 
@@ -60,7 +60,7 @@ Nexus is an open-source framework that generates and deploys a GraphQL API from 
 
 Once you have created your project and added data sources, you can run your GraphQL server in your local environment. This is a quick way to test your queries and make sure things are working correctly before you deploy your server to your AWS infrastructure.
 
-### `nexus add` or `nexus a`
+### `nexus add`
 
 - Asks for your data source name
 - You can 3 options: Postgres Database, GraphQL API Endpoint and REST API Endpoint
@@ -68,7 +68,7 @@ Once you have created your project and added data sources, you can run your Grap
 - For Postgres, you will enter a connection string
 - For GraphQL and REST, you will enter an endpoint
 
-### `nexus dev` or `nexus d`
+### `nexus dev`
 
 - Spins up your local development GraphQL Server
 - Opens a browser page at `localhost` with the port you specified in the command line
