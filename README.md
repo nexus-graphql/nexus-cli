@@ -30,7 +30,8 @@ Nexus is a GraphQL Backend-as-a-Service. This is a great way for you and your te
 
 | Commands          | Description                         |
 | ----------------- | ----------------------------------- |
-| `nexus init`      | Creates and Configures your project |
+| `nexus init`      | Creates and configures your project |
+| `nexus add`       | Adds additional data sources        |
 | `nexus dev`       | Starts mesh server                  |
 | `nexus dashboard` | Starts dashboard                    |
 | `nexus deploy`    | Deploys server to AWS               |
@@ -39,23 +40,19 @@ Nexus is a GraphQL Backend-as-a-Service. This is a great way for you and your te
 
 ## :desktop_computer: Setup & Installation
 
-### 1. `npm install nexus-cli`
+### 1. `npm install -g nexus_graphql_cli`
 
-- Installs the Nexus CLI NPM package
+- Globally installs the Nexus CLI NPM package
 
-### 2. `npm install -g .`
-
-- Globally Installs all Nexus commands
-
-### 3. `nexus --help`
+### 2. `nexus --help`
 
 - Displays a list and descriptions of all Nexus commands
 
-### 4. `mkdir <project directory name> && cd <project directory name>`
+### 3. `mkdir <project directory name> && cd <project directory name>`
 
 - Create a new empty directory where you will run your project
 
-### 5. `nexus init` or `nexus i`
+### 4. `nexus init` or `nexus i`
 
 - Initializes your new project that contains a `.meshrc.yaml` configuration file. Nexus adds your data sources to this file to configure your GraphQL server.
 
@@ -67,7 +64,7 @@ Once you have created your project and added data sources, you can run your Grap
 
 - Asks for your data source name
 - You can 3 options: Postgres Database, GraphQL API Endpoint and REST API Endpoint
-- Asks for your connection
+- Asks for your connection details
 - For Postgres, you will enter a connection string
 - For GraphQL and REST, you will enter an endpoint
 
@@ -75,7 +72,7 @@ Once you have created your project and added data sources, you can run your Grap
 
 - Spins up your local development GraphQL Server
 - Opens a browser page at `localhost` with the port you specified in the command line
-- From here, you can make queries to your data sources
+- From here, you can make test queries to your data sources
 - Any data sources that you add through `nexus add` will be reflected in the Explorer
 
 ### `nexus dashboard`
@@ -85,7 +82,7 @@ Once you have created your project and added data sources, you can run your Grap
 - You have a few options when it comes to deploying to your AWS infrastructure:
   - If you have not deployed your server yet, you can click the `deploy` button
   - If you have already deployed your project, you can make changes to your data sources and then redeploy your project
-- On the `GraphiQL` tab, you can view your local development environment. This GraphiQL looks similiar to the GraphiQL that appears in your browser at `localhost` when you run the command `nexus dev`
+- On the `GraphiQL` tab, you can view your local development environment. This GraphiQL is similiar to the GraphiQL that appears in your browser at `localhost` when you run the command `nexus dev`
 - When you make changes to your data sources, a new GraphiQL environment will generate after a few seconds. This will reflect all of your data source changes.
 
 ## :rocket: Deployment
@@ -95,13 +92,18 @@ We automate the process of deploying your server to AWS to make things easier fo
 ### `nexus deploy`
 
 - Creates a Docker image that packages up your code
-- specify steps user will take
-- You are prompted to enter your AWS region
-- etc.
+- Pushes the Docker image to a private repository on Amazon's Elastic Container Registry
+- Provisions AWS services to run your server through Fargate and ECS.
+
+### `nexus redeploy`
+
+- Re-creates the Docker image that packages up your code
+- Updates ECR with the new Docker image
+- Updates the Fargate task to the new Docker image and produces a new IP address to query
 
 ## :arrow_lower_left: Teardown
 
-You can decide to teardown your AWS resources. This will not destroy your GraphQL server project.
+You can decide to deprovision your AWS resources. This will not destroy your GraphQL server project locally, only the deployed server and resources on AWS.
 
 ### `nexus destroy`
 
